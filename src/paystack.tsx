@@ -24,6 +24,7 @@ const Paystack: React.ForwardRefRenderFunction<React.ReactNode, PayStackProps> =
     autoStart = false,
     onSuccess,
     activityIndicatorColor = 'green',
+    metadata,
   },
   ref,
 ) => {
@@ -76,14 +77,15 @@ const Paystack: React.ForwardRefRenderFunction<React.ReactNode, PayStackProps> =
                 currency: '${currency}',
                 ${getChannels(channels)}
                 ${refNumberString}
-                metadata: {
-                custom_fields: [
-                        {
-                        display_name:  '${firstName + ' ' + lastName}',
-                        variable_name:  '${billingName}',
-                        value:''
-                        }
-                ]},
+                metadata: metadata,
+                // metadata: {
+                // custom_fields: [
+                //         {
+                //         display_name:  '${firstName + ' ' + lastName}',
+                //         variable_name:  '${billingName}',
+                //         value:''
+                //         }
+                // ]},
                 callback: function(response){
                       var resp = {event:'successful', transactionRef:response};
                         window.ReactNativeWebView.postMessage(JSON.stringify(resp))
